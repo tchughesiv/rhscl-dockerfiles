@@ -28,7 +28,7 @@ EXPOSE 5432
 # to make sure of that.
 RUN yum -y install centos-release-scl && \
     yum -y --setopt=tsflags=nodocs install rh-postgresql95 rh-postgresql95-postgresql-contrib --nogpgcheck && \
-    INSTALL_PKGS="rsync tar bind-utils" && \
+    INSTALL_PKGS="rsync tar bind-utils gettext" && \
     yum -y --setopt=tsflags=nodocs install $INSTALL_PKGS && \
     rpm -V $INSTALL_PKGS && \
     yum clean all && \
