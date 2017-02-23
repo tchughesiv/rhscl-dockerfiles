@@ -26,7 +26,7 @@ EXPOSE 5432
 # This image must forever use UID 26 for postgres user so our volumes are
 # safe in the future. This should *never* change, the last test is there
 # to make sure of that.
-RUN yum install centos-release-scl && \
+RUN yum -y install centos-release-scl && \
     yum -y --setopt=tsflags=nodocs install rh-postgresql95 rh-postgresql95-postgresql-contrib --nogpgcheck && \
     INSTALL_PKGS="rsync tar bind-utils" && \
     yum -y --setopt=tsflags=nodocs install $INSTALL_PKGS && \
