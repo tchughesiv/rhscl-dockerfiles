@@ -6,7 +6,7 @@ source "${CONTAINER_SCRIPTS_PATH}/common.sh"
 
 set_pgdata
 check_env_vars
-generate_passwd_file
+# generate_passwd_file
 generate_postgresql_config
 
 if [ ! -f "$PGDATA/postgresql.conf" ]; then

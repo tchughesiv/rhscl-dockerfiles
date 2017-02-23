@@ -1,4 +1,4 @@
-FROM centos:centos7
+FROM centos:7
 
 # PostgreSQL image for OpenShift.
 # Volumes:
@@ -10,7 +10,7 @@ FROM centos:centos7
 #  * $POSTGRESQL_ADMIN_PASSWORD (Optional) - Password for the 'postgres'
 #                           PostgreSQL administrative account
 
-MAINTAINER SoftwareCollections.org <sclorg@redhat.com>
+MAINTAINER Tommy Hughes <tchughesiv@gmail.com>
 
 ENV POSTGRESQL_VERSION=9.5 \
     HOME=/var/lib/pgsql \
@@ -26,11 +26,9 @@ EXPOSE 5432
 # This image must forever use UID 26 for postgres user so our volumes are
 # safe in the future. This should *never* change, the last test is there
 # to make sure of that.
-RUN rpmkeys --import file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7 && \
-    yum install -y centos-release-scl-rh epel-release && \
-    yum-config-manager --enable centos-sclo-rh-testing && \
-    yum -y install rh-postgresql95 rh-postgresql95-postgresql-contrib --nogpgcheck && \
-    INSTALL_PKGS="rsync tar gettext bind-utils nss_wrapper" && \
+RUN yum install centos-release-scl && \
+    yum -y --setopt=tsflags=nodocs install rh-postgresql95 rh-postgresql95-postgresql-contrib --nogpgcheck && \
+    INSTALL_PKGS="rsync tar bind-utils" && \
     yum -y --setopt=tsflags=nodocs install $INSTALL_PKGS && \
     rpm -V $INSTALL_PKGS && \
     yum clean all && \
